@@ -16,7 +16,7 @@ function HomePage() {
                 <img src={knightUrl} alt="The Knight" />
 
                 <div className="botones">
-                    <Link to="/login" className="btn btn-outline-light btn-lg boton-hollow">Iniciar Sesión </Link>
+                    <Link to="/iniciosesion" className="btn btn-outline-light btn-lg boton-hollow">Iniciar Sesión </Link>
                     <Link to="/registro" className="btn btn-outline-light btn-lg boton-hollow">Registrarse</Link>
                 </div>
             </main>
