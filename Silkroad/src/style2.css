@@ -341,9 +341,3 @@ body {
     color: white !important;
     border-color:#dc3545 !important;
 }
-#root h1 {
-    color: white !important; /* Fuerza el color a ser blanco */
-    text-align: center;
-    margin-top: 5rem; /* Le da un poco de espacio desde arriba */
-    font-size: 3rem;  /* Lo hacemos grande para que sea visible */
-}
