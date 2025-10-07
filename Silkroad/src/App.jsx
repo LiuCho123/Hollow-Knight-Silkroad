@@ -8,6 +8,8 @@ import InicioSesion from './paginas/InicioSesion'
 import OlvidePassword from './paginas/OlvidePassword';
 import VerificarCodigo from './paginas/VerificarCodigo';
 import RecuperarContraseña from './paginas/RecuperarPassword';
+import Foro from './paginas/Foro';
+import Layout from './Layout';
 
 
 function App() {
@@ -25,6 +27,10 @@ function App() {
         <Route path="/verificarcodigo" element={<VerificarCodigo/>}/>
 
         <Route path="/recuperarpassword" element={<RecuperarContraseña/>}/>
+
+        <Route element={<Layout />}>
+          <Route path="/foro" element={<Foro />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
