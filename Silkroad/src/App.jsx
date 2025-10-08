@@ -8,6 +8,7 @@ import InicioSesion from './paginas/InicioSesion'
 import OlvidePassword from './paginas/OlvidePassword';
 import VerificarCodigo from './paginas/VerificarCodigo';
 import RecuperarContraseña from './paginas/RecuperarPassword';
+import ChecklistPage from './paginas/Checklist';
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
         <Route path="/verificarcodigo" element={<VerificarCodigo/>}/>
 
         <Route path="/recuperarpassword" element={<RecuperarContraseña/>}/>
+
+        <Route path="/checklist" element={<ChecklistPage/>}/>
       </Routes>
     </BrowserRouter>
   );

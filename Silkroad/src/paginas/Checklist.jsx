@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom"
+import { useState, useEffect } from 'react';
+import '/src/style.css';
+const STORAGE_KEY = 'hollowKnightProgress';
 const logoUrl = '/img/Logo Silk Road.png';
 const knightUrl = "/img/The_Knight.png";
 const percentageValues = {
@@ -164,4 +167,85 @@ const checklistData = [
             {id: 'charm40', label: 'Alma del Rey / Corazón del vacio' }]},
         ];
 
-function Checklist() {}
+function ChecklistPage() {
+const [checkedItems, setCheckedItems] = useState(new Set());
+
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+      setCheckedItems(new Set(JSON.parse(savedData)));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...checkedItems]));
+  }, [checkedItems]);
+
+  const handleCheckboxChange = (id) => {
+    const newCheckedItems = new Set(checkedItems);
+    if (newCheckedItems.has(id)) {
+      newCheckedItems.delete(id);
+    } else {
+      newCheckedItems.add(id);
+    }
+    setCheckedItems(newCheckedItems);
+  };
+  
+  const handleReset = () => {
+    if (window.confirm('¿Estás seguro de que quieres borrar todo tu progreso?')) {
+      setCheckedItems(new Set());
+    }
+  };
+
+  let currentPercentage = 0;
+  const allItemsForCalc = checklistData.flatMap(cat => cat.items.map(item => ({...item, category: cat.category })));
+  
+  checkedItems.forEach(id => {
+    const item = allItemsForCalc.find(i => i.id === id);
+    if (item && percentageValues[item.category]) {
+      currentPercentage += percentageValues[item.category];
+    }
+  });
+
+  const totalItems = allItemsForCalc.length;
+  const itemsRemaining = totalItems - checkedItems.size;
+
+  return (
+    <div className="container">
+      <h1>Medidor Progreso 112%</h1>
+      <p className="progress-info">
+        <span id="items-remaining">{itemsRemaining}</span> Objetivos restantes
+      </p>
+      <h2 id="progress-text">{currentPercentage.toFixed(2)}% Completado</h2>
+      <button id="reset-button" className="reset-btn" onClick={handleReset}>
+        Reiniciar Progreso
+      </button>
+      <div className="lists-wrapper">
+        {checklistData.map(category => (
+          <div className="checklist-column" key={category.category}>
+            <div className="title-wrapper">
+              <h3>{category.title}</h3>
+            </div>
+            <ul className="checklist">
+              {category.items.map(item => (
+                <li key={item.id}>
+                  <input
+                    type="checkbox"
+                    id={item.id}
+                    className="checklist-item"
+                    data-category={category.category}
+                    checked={checkedItems.has(item.id)}
+                    onChange={() => handleCheckboxChange(item.id)}
+                  />
+                  <label htmlFor={item.id}>{item.label}</label>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default ChecklistPage;

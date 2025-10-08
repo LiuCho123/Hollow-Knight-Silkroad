@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './style2.css'
+import './style.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
