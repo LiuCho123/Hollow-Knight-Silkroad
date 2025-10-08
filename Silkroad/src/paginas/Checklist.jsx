@@ -92,6 +92,76 @@ const checklistData = [
             {id: 'dream-nail1', label: 'Consigue el Aguijon Onirico' },
             {id: 'dream-nail2', label: 'Despierta el Aguijon Onirico' },
             {id: 'dream-nail3', label: 'Ultimas palabras del Seer' }]},
+    {
+        category: 'nail-art', title: 'Arte del aguijon', items: [
+            {id: 'nail-art1', label: 'Gran Corte' },
+            {id: 'nail-art2', label: 'Corte Ciclon' },
+            {id: 'nail-art3', label: 'Corte Veloz' }]},
+    {
+        category: 'vessel-fragment', title: 'Fragmentos de Vasija', items: [
+            {id: 'vessel-fragment1', label: 'Fragmento de Vasija 1' },
+            {id: 'vessel-fragment2', label: 'Fragmento de Vasija 2' },
+            {id: 'vessel-fragment3', label: 'Fragmento de Vasija 3' },
+            {id: 'vessel-fragment4', label: 'Fragmento de Vasija 4' },
+            {id: 'vessel-fragment5', label: 'Fragmento de Vasija 5' },
+            {id: 'vessel-fragment6', label: 'Fragmento de Vasija 6' },
+            {id: 'vessel-fragment7', label: 'Fragmento de Vasija 7' },
+            {id: 'vessel-fragment8', label: 'Fragmento de Vasija 8' },
+            {id: 'vessel-fragment9', label: 'Fragmento de Vasija 9' }]},
+    {
+        category: 'dreamer', title: 'Soñadores', items: [
+            {id: 'dreamer1', label: 'Monomon la Entendida' },
+            {id: 'dreamer2', label: 'Lurien el Vigia' },
+            {id: 'dreamer3', label: 'Herrah la Bestia' }]},
+    {
+        category: 'godhome', title: 'Hogar de los Dioses', items: [
+            {id: 'godhome1', label: 'Panteon del Maestro' },
+            {id: 'godhome2', label: 'Panteon del Artista' },
+            {id: 'godhome3', label: 'Panteon del Sabio' },
+            {id: 'godhome4', label: 'Panteon del Caballero' },
+            {id: 'godhome5', label: 'Panteon de Hallownest' }]},
+    {
+        category: 'charm', title: 'Amuletos', items: [
+            {id: 'charm1', label: 'Brujula Caprichosa' },
+            {id: 'charm2', label: 'Enjambre Recolector' },
+            {id: 'charm3', label: 'Coraza Robusta' },
+            {id: 'charm4', label: 'Atrapalmas' },
+            {id: 'charm5', label: 'Piedra de Chamán' },
+            {id: 'charm6', label: 'Devoralmas' },
+            {id: 'charm7', label: 'Maestro de la Embestida' },
+            {id: 'charm8', label: 'Maestro del Esprint' },
+            {id: 'charm9', label: 'Cancion de las Larvas' },
+            {id: 'charm10', label: 'Elegía de la Larvamosca' },
+            {id: 'charm11', label: 'Corazon Fragil' },
+            {id: 'charm12', label: 'Avaricia Fragil' },
+            {id: 'charm13', label: 'Fuerza Fragil' },
+            {id: 'charm14', label: 'TuerceHechizos' },
+            {id: 'charm15', label: 'Cuerpo Firme' },
+            {id: 'charm16', label: 'Golpe Pesado' },
+            {id: 'charm17', label: 'Corte Rápido' },
+            {id: 'charm18', label: 'Largoaguijon' },
+            {id: 'charm19', label: 'Marca del Orgullo' },
+            {id: 'charm20', label: 'Furia de los Caídos' },
+            {id: 'charm21', label: 'Espinas de Agonía' },
+            {id: 'charm22', label: 'Coraza de Baldur' },
+            {id: 'charm23', label: 'Nido de Larvas' },
+            {id: 'charm24', label: 'Blason del Defensor' },
+            {id: 'charm25', label: 'Vientre Brillante' },
+            {id: 'charm26', label: 'Concentracion Rapida' },
+            {id: 'charm27', label: 'Concentracion Profunda' },
+            {id: 'charm28', label: 'Corazón de Sangre Vital' },
+            {id: 'charm29', label: 'Alma de Sangre Vital' },
+            {id: 'charm30', label: 'Bendicion de Joni' },
+            {id: 'charm31', label: 'Sangrecolmena' },
+            {id: 'charm32', label: 'Hongo con Esporas' },
+            {id: 'charm33', label: 'Sombra Afilada' },
+            {id: 'charm34', label: 'Forma de Unn' },
+            {id: 'charm35', label: 'Gloria del Maestro de Aguijones' },
+            {id: 'charm36', label: 'Cancion de la Tejedora' },
+            {id: 'charm37', label: 'Portador Onirico' },
+            {id: 'charm38', label: 'Escudo Onirico' },
+            {id: 'charm39', label: 'Niño de Grimm / Melodia Despreocupada' },
+            {id: 'charm40', label: 'Alma del Rey / Corazón del vacio' }]},
         ];
 
-//function Checklist() {}
+function Checklist() {}
