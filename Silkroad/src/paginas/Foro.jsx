@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { hilosData } from '../data/mockData';
+import { hilosData } from '../data/hilosData';
 
 function Foro() {
     const [hilos, setHilos] = useState([]);
@@ -29,31 +29,31 @@ function Foro() {
                     </Link>
                 </div>
 
-                    <table className="tabla-hilos">
-                        <thead>
-                            <tr>
-                                <th>Tema</th>
-                                <th>Autor</th>
-                                <th>Respuestas</th>
-                                <th>Últimos posts</th>
+                <table className="tabla-hilos">
+                    <thead>
+                        <tr>
+                            <th>Tema</th>
+                            <th>Autor</th>
+                            <th>Respuestas</th>
+                            <th>Últimos posts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {hilos.map(hilo => (
+                            <tr key={hilo.id}>
+                                <td>
+                                    <Link to={`/hilo/${hilo.id}`}>{hilo.titulo}</Link>
+                                </td>
+                                <td>{hilo.autor}</td>
+                                <td>{hilo.respuestas}</td>
+                                <td>
+                                    por {hilo.ultimoMensaje.autor} <br />
+                                    <small>{formatearFecha(hilo.ultimoMensaje.fecha)}</small>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {hilos.map(hilo => (
-                                <tr key={hilo.id}>
-                                    <td>
-                                        <Link to={`/hilo/${hilo.id}`}>{hilo.titulo}</Link>
-                                    </td>
-                                    <td>{hilo.autor}</td>
-                                    <td>{hilo.respuestas}</td>
-                                    <td>
-                                        por {hilo.ultimoMensaje.autor} <br />
-                                        <small>{formatearFecha(hilo.ultimoMensaje.fecha)}</small>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                        ))}
+                    </tbody>
+                </table>
 
             </div>
         </main>

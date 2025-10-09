@@ -10,6 +10,7 @@ import Foro from './paginas/Foro';
 import Layout from './Layout';
 import CrearHilo from './paginas/CrearHilo';
 import Hilo from './paginas/Hilo';
+import Trivia from './paginas/Trivia';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
 
         <Route element={<Layout />}>
           <Route path="/foro" element={<Foro />} />
+          <Route path="/trivia" element={<Trivia />} />
           <Route path="/checklist" element={<Foro />} />
         </Route>
       </Routes>
