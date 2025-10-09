@@ -11,6 +11,7 @@ import Layout from './Layout';
 import CrearHilo from './paginas/CrearHilo';
 import Hilo from './paginas/Hilo';
 import Trivia from './paginas/Trivia';
+import ChecklistPage from './paginas/Checklist';
 
 
 function App() {
