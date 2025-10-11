@@ -136,8 +136,8 @@
 }
 .container {
   margin: 0 auto; 
-  max-width: fit-content;
-  padding: 2rem; 
+  max-width: 1200px; 
+  padding: 2rem;   
   background-color: rgba(26, 26, 42, 0.7); 
   border-radius: 15px; 
   border: 1px solid #4a5a73; 
@@ -145,11 +145,10 @@
   text-align: center;
   overflow-wrap: break-word; 
   box-sizing: border-box; 
-  
 }
 
 .bg-body-tertiary{
-    background-image: url(../img/Fondo.png);
+    background-image: url(/img/Fondo.png);
 
     background-repeat: no-repeat;
 
@@ -162,24 +161,30 @@
     background-color: #1a1a1a;
 }
 body{
-    background-image: url(../img/Fondo.png);
+    background-image: url(/img/Fondo.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
     background-color: #1a1a1a;
 }
-.btn-guia{
-    background-color:  #00bfff8a;
-    color: #fff;
-    border: none;
-    margin-bottom: 0;
+.accordion-button{
+    background-color: #3115d38a !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    font-weight: bold;
 }
-.col-guia{
-    background-color:  #00bfff8a;
-    color: #fff;
+.accordion-item {
+    background-color: transparent !important; 
+    border: none !important; 
+    margin-bottom: 10px;
     margin-top: -15px;
-    margin-bottom: 5px;
+}
+
+.accordion-body {
+    background-color: #00bfff8a;
+    color: #fff;
+    border-radius: 0 0 10px 10px; 
 }
 #progress-text {
     font-size: 3rem;
@@ -194,7 +199,7 @@ body{
 h3{
     font-size: 2.5rem;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgb(255, 255, 255);
     max-width: 100%;            
     white-space: normal; 
     width: fit-content;
@@ -202,7 +207,7 @@ h3{
 h1 {
     font-size: 2.5rem;
     color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-shadow: 0 0 10px rgb(255, 255, 255);
     word-break: break-word;      
     overflow-wrap: break-word;  
     max-width: 100%;            
@@ -258,17 +263,19 @@ h1 {
     transform: scaleX(-1);
 }
 
-
 .lists-wrapper {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    gap: 30px;
-    text-align: left;
+  column-count: 3;
+  column-gap: 40px; 
+  width: 100%;
+}
+.category-block {
+  break-inside: avoid; 
+  padding-bottom: 20px; 
 }
 
 .checklist-column {
-    flex: 1;
+  flex: 1; 
+  min-width: 250px; 
 }
 
 .checklist {
@@ -325,17 +332,20 @@ h1 {
 .frag{
     color: #fdfff2;
 }
+@media (max-width: 1000px) {
+  .lists-wrapper {
+    column-count: 2; 
+  }
+}
 @media (max-width: 768px) {
   .lists-wrapper {
+    column-count: 1; 
     flex-direction: column;
     align-items: center; 
     gap: 40px; 
   }
   .checklist-column {
     width: 90%; 
-  }
-  h1 {
-    font-size: 1.8rem;
   }
   #progress-text {
     font-size: 2.5rem; 
