@@ -233,6 +233,11 @@ body {
     border-radius: 15px;
     color: white;
 }
+.foro-container .d-flex h1 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    min-width: 0;
+}
 .foro-header{
     display: flex;
     justify-content: space-between;
@@ -249,6 +254,7 @@ body {
     border-collapse: collapse;
     text-align: left;
     font-size: 1rem;
+    table-layout: fixed;
 }
 .tabla-hilos th{
     padding: 15px;
@@ -259,6 +265,9 @@ body {
     padding: 20px 15px;
     border-bottom: 1px solid #444;
     vertical-align: middle;
+}
+.tabla-hilos td, .tabla-hilos th{
+    word-wrap: break-word;
 }
 .tabla-hilos tbody tr:hover{
     background-color: rgba(255, 255, 255, 0.05);
@@ -294,6 +303,8 @@ body {
 .post-contenido{
     margin-bottom: 15px;
     line-height: 1.6;
+    word-wrap: break-word;
+
 }
 .post-fecha{
     font-size: 0.8em;
@@ -331,7 +342,7 @@ body {
     background-color: #444;
     border-color: #888;
 }
-.btn.respuesta.correcta{
+.btn-respuesta.correcta{
     background-color: #28a745 !important;
     color: white !important;
     border-color:#28a745 !important;
