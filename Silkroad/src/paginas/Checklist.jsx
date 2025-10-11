@@ -221,28 +221,27 @@ const [checkedItems, setCheckedItems] = useState(new Set());
         Reiniciar Progreso
       </button>
       <div className="lists-wrapper">
-        {checklistData.map(category => (
-          <div className="checklist-column" key={category.category}>
-            <div className="title-wrapper">
-              <h3>{category.title}</h3>
+          {checklistData.map(category => (
+            <div className="category-block" key={category.category}> {/* <--- NUEVA CLASE */}
+              <div className="title-wrapper">
+                <h3>{category.title}</h3>
+              </div>
+              <ul className="checklist">
+                {category.items.map(item => (
+                  <li key={item.id}>
+                    <input
+                      type="checkbox"
+                      id={item.id}
+                      className="checklist-item"
+                      checked={checkedItems.has(item.id)}
+                      onChange={() => handleCheckboxChange(item.id)}
+                    />
+                    <label htmlFor={item.id}>{item.label}</label>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="checklist">
-              {category.items.map(item => (
-                <li key={item.id}>
-                  <input
-                    type="checkbox"
-                    id={item.id}
-                    className="checklist-item"
-                    data-category={category.category}
-                    checked={checkedItems.has(item.id)}
-                    onChange={() => handleCheckboxChange(item.id)}
-                  />
-                  <label htmlFor={item.id}>{item.label}</label>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
