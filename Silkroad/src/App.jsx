@@ -11,6 +11,10 @@ import Layout from './Layout';
 import CrearHilo from './paginas/CrearHilo';
 import Hilo from './paginas/Hilo';
 import Trivia from './paginas/Trivia';
+import ChecklistPage from './paginas/Checklist';
+import GuiaPage from './paginas/Guia';
+
+
 
 
 function App() {
@@ -31,7 +35,8 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/foro" element={<Foro />} />
           <Route path="/trivia" element={<Trivia />} />
-          <Route path="/checklist" element={<Foro />} />
+          <Route path="/checklist" element={<ChecklistPage />} />
+          <Route path="/guia" element={<GuiaPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
