@@ -1,38 +1,54 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+const api_url = "http://demo0658844.mockable.io";
+
 function CrearHilo() {
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        setError(null);
+        setLoading(true);
 
-        const hilos = JSON.parse(localStorage.getItem("hilos")) || [];
-
-        const nuevoHilo = {
-            id: Date.now(),
-            titulo: titulo,
-            autor: "LiuCho",
-            respuestas: 0,
-            ultimoMensaje: {
-                autor: "LiuCho",
-                fecha: new Date().toISOString()
-            },
-            mensajes: [{
+        try {
+            const nuevoHilo = {
                 id: Date.now(),
-                autor: "UsuarioX",
-                contenido: contenido,
-                fecha: new Date().toISOString()
-            }]
-        };
+                titulo: titulo,
+                autor: "LiuCho", // Tu nombre de autor
+                respuestas: 0,
+                ultimoMensaje: {
+                    autor: "LiuCho",
+                    fecha: new Date().toISOString()
+                },
+                mensajes: [{
+                    id: Date.now(),
+                    autor: "LiuCho",
+                    contenido: contenido,
+                    fecha: new Date().toISOString()
+                }]
+            };
 
-        hilos.push(nuevoHilo);
-        localStorage.setItem("hilos", JSON.stringify(hilos));
+            const response = await fetch(`${api_url}/hilos`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoHilo)
+            });
 
-        navigate("/foro");
+            if (!response.ok) {
+                throw new Error("No se pudo crear el hilo")
+            }
+            navigate("/foro");
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -46,6 +62,7 @@ function CrearHilo() {
             <main className="container my-5">
                 <div className="foro-container">
                     <h1>Crear un nuevo hilo</h1>
+                    {error && <p className="mensaje-error">{error}</p>}
                     <hr className="my-4" style={{ borderColor: '#a19595' }} />
 
                     <form onSubmit={handleSubmit}>
@@ -71,8 +88,8 @@ function CrearHilo() {
                                 required>
                             </textarea>
                         </div>
-                        <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow">
-                            Publicar hilo
+                        <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow" disabled={loading}>
+                            {loading ? 'Publicando...' : 'Publicar hilo'}
                         </button>
                     </form>
                 </div>

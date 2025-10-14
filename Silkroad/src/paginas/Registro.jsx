@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const api_url = "http://demo0658844.mockable.io";
+
 function Registro() {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -9,10 +11,11 @@ function Registro() {
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setError("");
 
@@ -32,25 +35,34 @@ function Registro() {
             setError('Las contraseñas no coinciden, inténtelo nuevamente');
             return;
         }
+        
+        setLoading(true);
 
-        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-        const usuarioExistente = usuarios.find(user => user.email === email || user.username === username);
+        try{
+            const response = await fetch(`${api_url}/usuarios`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password
+                }),
+            });
 
-        if (usuarioExistente) {
-            setError('El correo o el nombre de usuario ya está en uso');
-            return;
+            const data = await response.json();
+
+            if (!response.ok){
+                throw new Error(data.message || 'Ocurrió un error al registrar el usuario')
+            }
+            navigate('/iniciosesion');
+            
+        } catch(err){
+            setError(err.message);
+        }finally{
+            setLoading(false);
         }
-
-        const nuevoUsuario = {
-            username: username,
-            email: email,
-            password: password
-        };
-        usuarios.push(nuevoUsuario);
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-        alert('¡Registro exitoso! Redirigiendo al inicio de sesión...');
-        navigate('/login');
     };
 
     const handleShowPassword = () => {
@@ -114,7 +126,8 @@ function Registro() {
                         </div>
                     </div>
 
-                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-4 boton-hollow">Registrarse</button>
+                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-4 boton-hollow"
+                    disabled={loading}>{loading ? 'Registrando...': 'Registrarse'}</button>
                     <div className="text-center mt-3">
                         <Link to="/iniciosesion" className="link-blue">¿Ya tienes una cuenta? Inicia sesión</Link>
                     </div>
