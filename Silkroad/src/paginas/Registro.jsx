@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const api_url = "http://demo0658844.mockable.io";
-
 function Registro() {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -11,11 +9,10 @@ function Registro() {
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         setError("");
 
@@ -35,34 +32,10 @@ function Registro() {
             setError('Las contraseñas no coinciden, inténtelo nuevamente');
             return;
         }
-        
-        setLoading(true);
 
-        try{
-            const response = await fetch(`${api_url}/usuarios`,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password
-                }),
-            });
+        alert(`Registro exitoso para el usuario: ${username}`);
 
-            const data = await response.json();
-
-            if (!response.ok){
-                throw new Error(data.message || 'Ocurrió un error al registrar el usuario')
-            }
-            navigate('/iniciosesion');
-            
-        } catch(err){
-            setError(err.message);
-        }finally{
-            setLoading(false);
-        }
+        navigate("/iniciosesion")
     };
 
     const handleShowPassword = () => {
@@ -125,9 +98,9 @@ function Registro() {
                             <img src="/img/ojo-cerrado.png" id="toggleConfirmPassword" className="toggle-password-icon" alt="Mostrar/Ocultar" onClick={handleShowConfirmPassword} />
                         </div>
                     </div>
-
-                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-4 boton-hollow"
-                    disabled={loading}>{loading ? 'Registrando...': 'Registrarse'}</button>
+                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-4 boton-hollow">
+                        Registrarse
+                    </button>
                     <div className="text-center mt-3">
                         <Link to="/iniciosesion" className="link-blue">¿Ya tienes una cuenta? Inicia sesión</Link>
                     </div>

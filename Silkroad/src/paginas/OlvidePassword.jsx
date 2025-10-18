@@ -1,31 +1,47 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+const api_url = "http://demo0658844.mockable.io";
+
 function OlvidePassword() {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setError("");
+        setLoading(true);
 
-        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-        const usuarioExistente = usuarios.find(user => user.email === email);
+        try {
+            const response = await fetch(`${api_url}/usuarios`);
+            if (!response.ok) {
+                throw new Error("Error al conectar con el servidor")
+            }
+            const usuarios = await response.json();
 
-        if (!usuarioExistente) {
-            setError("El correo electrónico no se encuentra registrado");
-            return;
+            const usuarioExistente = usuarios.find(user => user.email === email);
+
+            if (!usuarioExistente) {
+                setError("El correo electrónico no se encuentra registrado")
+                return;
+            }
+
+            const codigo = Math.floor(100000 + Math.random() * 900000).toString();
+            localStorage.setItem("recuperacion", JSON.stringify({ email: email, codigo: codigo }));
+
+            alert(`SIMULACIÓN: Se ha enviado un correo a ${email} con el código: ${codigo}`);
+            navigate("/verificarcodigo");
+        } catch (err){
+            setError(err.message)
+        } finally{
+            setLoading(false);
         }
 
-        const codigo = Math.floor(100000 + Math.random() * 900000).toString();
 
-        localStorage.setItem("recuperacion", JSON.stringify({ email: email, codigo: codigo }));
 
-        alert(`SIMULACIÓN: Se ha enviado un correo a ${email} con el código: ${codigo}`);
-
-        navigate("/verificarcodigo");
     };
 
     return (
@@ -48,7 +64,9 @@ function OlvidePassword() {
                             placeholder="Ingrese su correo" value={email} onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow">Enviar código</button>
+                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow" disabled={loading}>
+                        {loading ? "Verificando..." : "Enviar código"}
+                    </button>
                 </form>
             </main>
         </div>

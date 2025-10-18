@@ -1,32 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const api_url = "http://demo0658844.mockable.io";
-
-function Foro() {
-    const [hilos, setHilos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchHilos = async () => {
-            try {
-                const response = await fetch(`${api_url}/hilos`);
-                if (!response.ok) {
-                    throw new Error("No se pudieron cargar los hilos");
-                }
-                const data = await response.json();
-                setHilos(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchHilos();
-    }, []);
-
+function Foro({hilos, loading, error}) {
     const formatearFecha = (fechaISO) => {
         const fecha = new Date(fechaISO);
         return fecha.toLocaleDateString('es-ES', {
