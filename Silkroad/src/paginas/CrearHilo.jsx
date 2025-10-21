@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function CrearHilo({onCrearHilo}) {
+function CrearHilo() {
     const [titulo, setTitulo] = useState("");
     const [contenido, setContenido] = useState("");
 
@@ -10,28 +10,31 @@ function CrearHilo({onCrearHilo}) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-            const nuevoHilo = {
+        const hilos = JSON.parse(localStorage.getItem("hilos")) || [];
+
+        const nuevoHilo = {
+            id: Date.now(),
+            titulo: titulo,
+            autor: "LiuCho",
+            respuestas: 0,
+            ultimoMensaje: {
+                autor: "LiuCho",
+                fecha: new Date().toISOString()
+            },
+            mensajes: [{
                 id: Date.now(),
-                titulo: titulo,
-                autor: "LiuCho", 
-                respuestas: 0,
-                ultimoMensaje: {
-                    autor: "LiuCho",
-                    fecha: new Date().toISOString()
-                },
-                mensajes: [{
-                    id: Date.now(),
-                    autor: "LiuCho",
-                    contenido: contenido,
-                    fecha: new Date().toISOString()
-                }]
-            };
+                autor: "UsuarioX",
+                contenido: contenido,
+                fecha: new Date().toISOString()
+            }]
+        };
 
-          onCrearHilo(nuevoHilo);
+        hilos.push(nuevoHilo);
+        localStorage.setItem("hilos", JSON.stringify(hilos));
 
-          navigate("/foro")
+        navigate("/foro");
+    };
 
-    }
     return (
         <div className="body-main">
             <header className="return-main">
@@ -69,7 +72,7 @@ function CrearHilo({onCrearHilo}) {
                             </textarea>
                         </div>
                         <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow">
-                            Publicar Hilo
+                            Publicar hilo
                         </button>
                     </form>
                 </div>

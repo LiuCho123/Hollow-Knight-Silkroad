@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HomePage from './paginas/HomePage'
 import Registro from './paginas/Registro';
@@ -14,36 +14,10 @@ import Trivia from './paginas/Trivia';
 import ChecklistPage from './paginas/Checklist';
 import GuiaPage from './paginas/Guia';
 
-const api_url = "http://demo0658844.mockable.io";
+
+
 
 function App() {
-  const [hilos, setHilos] = useState([]);
-  const[loading, setLoading] = useState(true);
-  const[error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchHilos = async () => {
-      try {
-        const response = await fetch(`${api_url}/hilos`);
-        if (!response.ok) {
-          throw new Error("No se pudieron cargar los hilos");
-        }
-        const data = await response.json();
-        setHilos(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHilos();
-  }, []);
-
-  const handleCrearHilo = (nuevoHilo) => {
-    setHilos([...hilos, nuevoHilo]);
-  }
-
   return (
     <BrowserRouter>
       <Routes>
@@ -53,13 +27,13 @@ function App() {
         <Route path="/olvidepassword" element={<OlvidePassword />} />
         <Route path="/verificarcodigo" element={<VerificarCodigo />} />
         <Route path="/recuperarpassword" element={<RecuperarContraseña />} />
-        <Route path="/crear-hilo" element={<CrearHilo onCrearHilo={handleCrearHilo}/>} />
-        <Route path="/hilo/:hiloId" element={<Hilo hilos={hilos}/>} />
+        <Route path="/crear-hilo" element={<CrearHilo />} />
+        <Route path="/hilo/:hiloId" element={<Hilo />} />
 
 
 
         <Route element={<Layout />}>
-          <Route path="/foro" element={<Foro hilos={hilos} loading={loading} error={error}/>} />
+          <Route path="/foro" element={<Foro />} />
           <Route path="/trivia" element={<Trivia />} />
           <Route path="/checklist" element={<ChecklistPage />} />
           <Route path="/guia" element={<GuiaPage />} />
