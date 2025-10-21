@@ -33,9 +33,24 @@ function Registro() {
             return;
         }
 
-        alert(`Registro exitoso para el usuario: ${username}`);
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const usuarioExistente = usuarios.find(user => user.email === email || user.username === username);
 
-        navigate("/iniciosesion")
+        if (usuarioExistente) {
+            setError('El correo o el nombre de usuario ya está en uso');
+            return;
+        }
+
+        const nuevoUsuario = {
+            username: username,
+            email: email,
+            password: password
+        };
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+        alert('¡Registro exitoso! Redirigiendo al inicio de sesión...');
+        navigate('/login');
     };
 
     const handleShowPassword = () => {
@@ -98,9 +113,8 @@ function Registro() {
                             <img src="/img/ojo-cerrado.png" id="toggleConfirmPassword" className="toggle-password-icon" alt="Mostrar/Ocultar" onClick={handleShowConfirmPassword} />
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-4 boton-hollow">
-                        Registrarse
-                    </button>
+
+                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-4 boton-hollow">Registrarse</button>
                     <div className="text-center mt-3">
                         <Link to="/iniciosesion" className="link-blue">¿Ya tienes una cuenta? Inicia sesión</Link>
                     </div>

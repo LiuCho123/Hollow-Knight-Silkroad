@@ -1,40 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 
-const API_URL = "http://demo0658844.mockable.io";
-
 function Hilo() {
     const { hiloId } = useParams();
     const navigate = useNavigate();
+
     const [hilo, setHilo] = useState(null);
     const [contenidoRespuesta, setContenidoRespuesta] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchHilo = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const response = await fetch(`${API_URL}/hilos`);
-                if (!response.ok) throw new Error('No se pudo cargar la información del hilo.');
-                
-                const hilos = await response.json();
-                const hiloActual = hilos.find(h => h.id === Number(hiloId));
-
-                if (hiloActual) {
-                    if (!hiloActual.mensajes) hiloActual.mensajes = [];
-                    setHilo(hiloActual);
-                } else {
-                    throw new Error('Hilo no encontrado.');
-                }
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchHilo();
+        const hilos = JSON.parse(localStorage.getItem("hilos")) || [];
+        const hilosDeEjemplo = JSON.parse(localStorage.getItem("hilosDeEjemplo")) || [];
+        const hilosAMostrar = hilos.length > 0 ? hilos : hilosDeEjemplo;
+        const hiloActual = hilosAMostrar.find(h => h.id === Number(hiloId));
+        setHilo(hiloActual);
     }, [hiloId]);
 
     const handleReplySubmit = (event) => {
@@ -43,35 +22,44 @@ function Hilo() {
 
         const nuevaRespuesta = {
             id: Date.now(),
-            autor: "UsuarioResponde",
+            autor: "UsuarioRespondiendo",
             contenido: contenidoRespuesta,
             fecha: new Date().toISOString()
         };
 
-        const hiloActualizado = {
-            ...hilo,
-            mensajes: [...hilo.mensajes, nuevaRespuesta]
-        };
-        setHilo(hiloActualizado);
-        setContenidoRespuesta('');
+        const hilos = JSON.parse(localStorage.getItem("hilos")) || [];
+        const hiloIndex = hilos.findIndex(h => h.id === Number(hiloId));
+
+        if (hiloIndex !== -1) {
+            const hiloActualizado = { ...hilos[hiloIndex] };
+            hiloActualizado.mensajes.push(nuevaRespuesta);
+            hiloActualizado.respuestas = hiloActualizado.mensajes.length - 1;
+            hiloActualizado.ultimoMensaje = { autor: nuevaRespuesta.autor, fecha: nuevaRespuesta.fecha };
+
+            hilos[hiloIndex] = hiloActualizado;
+            localStorage.setItem("hilos", JSON.stringify(hilos));
+
+            setHilo(hiloActualizado);
+            setContenidoRespuesta("");
+        }
     };
 
-    const handleDelete = () => { 
+    const handleDelete = () => {
         if (window.confirm('¿Estás seguro que deseas eliminar este hilo?')) {
-            alert("Hilo eliminado con exito (SIMULADO)");
+            const hilos = JSON.parse(localStorage.getItem("hilos")) || [];
+            const hilosActualizados = hilos.filter(h => h.id !== Number(hiloId));
+            localStorage.setItem("hilos", JSON.stringify(hilosActualizados));
+            alert("El hilo ha sido eliminado con éxito");
             navigate("/foro");
         }
     };
 
-    if (loading) return <div className='container my-5 text-white text-center'>Cargando hilo...</div>;
-    if (error) return <div className='container my-5 text-danger text-center'>Error: {error}</div>;
-    if (!hilo) return <div className='container my-5 text-white'>Hilo no encontrado.</div>;
-    
-    const mensajeOriginal = hilo.mensajes?.length > 0
-        ? hilo.mensajes[0]
-        : { autor: hilo.autor, contenido: "Este hilo aún no tiene un mensaje inicial.", fecha: new Date().toISOString() };
-        
-    const respuestas = hilo.mensajes?.length > 1 ? hilo.mensajes.slice(1) : [];
+    if (!hilo) {
+        return <div className='container my-5 text-white'>Hilo no encontrado o cargando...</div>;
+    }
+
+    const mensajeOriginal = hilo.mensajes[0];
+    const respuestas = hilo.mensajes.slice(1);
 
     return (
         <div className="body-main">

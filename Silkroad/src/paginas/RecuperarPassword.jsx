@@ -34,11 +34,21 @@ function RecuperarContraseña() {
             return;
         }
 
-        alert(`Se ha actualizado la contraseña (SIMULADO)`)
+        const datosRecuperacion = JSON.parse(localStorage.getItem('recuperacion'));
+        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-        localStorage.removeItem("recuperacion");
+        const usuarioAActualizar = usuarios.find(usuario => usuario.email === datosRecuperacion.email);
 
-        navegar("/iniciosesion")
+        if (usuarioAActualizar) {
+            usuarioAActualizar.password = nuevaClave;
+            localStorage.setItem("usuarios", JSON.stringify(usuarios));
+            localStorage.removeItem("recuperacion");
+
+            alert("Contraseña actualizada correctamente.");
+            navegar("/iniciosesion");
+        } else {
+            setError("No se pudo encontrar al usuario para actualizar.");
+        }
     };
 
     const manejarMostrarClave = () => {
@@ -97,9 +107,7 @@ function RecuperarContraseña() {
                             />
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow">
-                        Actualizar contraseña
-                    </button>
+                    <button type="submit" className="btn btn-lg btn-outline-light w-100 mt-3 boton-hollow">Actualizar contraseña</button>
                 </form>
             </main>
         </div>
