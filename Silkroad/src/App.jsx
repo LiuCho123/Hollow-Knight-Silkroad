@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ChecklistProvider } from './data/ChecklistContext.jsx';
 import HomePage from './paginas/HomePage'
 import Registro from './paginas/Registro';
 import InicioSesion from './paginas/InicioSesion'
@@ -13,6 +14,7 @@ import Hilo from './paginas/Hilo';
 import Trivia from './paginas/Trivia';
 import ChecklistPage from './paginas/Checklist';
 import GuiaPage from './paginas/Guia';
+import RankingPage from './paginas/Ranking.jsx';
 
 
 
@@ -20,6 +22,7 @@ import GuiaPage from './paginas/Guia';
 function App() {
   return (
     <BrowserRouter>
+    <ChecklistProvider>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/registro" element={<Registro />} />
@@ -36,9 +39,11 @@ function App() {
           <Route path="/foro" element={<Foro />} />
           <Route path="/trivia" element={<Trivia />} />
           <Route path="/checklist" element={<ChecklistPage />} />
+          <Route path="/ranking" element={<RankingPage />} />
           <Route path="/guia" element={<GuiaPage />} />
         </Route>
       </Routes>
+    </ChecklistProvider>
     </BrowserRouter>
   );
 }
