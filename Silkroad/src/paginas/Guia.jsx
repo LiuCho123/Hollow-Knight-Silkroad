@@ -3465,7 +3465,15 @@ function GuiaPage() {
                   <Button 
                     variant="primary" 
                     className="mt-3"
-                    onClick={() => setActiveKey(nextSectionKey)}
+                    onClick={() => {
+                      setActiveKey(nextSectionKey);
+                      setTimeout(() => {
+                        const el = document.getElementById(`section-${nextSectionKey}`);
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }, 120);
+                    }}
                   >siguiente sección
                   </Button>
                 )}
