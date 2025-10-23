@@ -369,3 +369,99 @@ h1 {
 .reset-btn:hover {
     background-color: #8c4242;
 }
+.ranking-container {
+  color: #e0e0e0; /* Un color de texto claro */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.ranking-container h1 {
+    margin-bottom: 15px;
+}
+.ranking-container p {
+    color: #b0b0b0;
+    margin-bottom: 30px;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto; 
+  max-width: 800px; 
+}
+
+.ranking-item, .ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: rgba(30, 30, 50, 0.4); 
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+
+.ranking-header {
+  font-weight: bold;
+  background-color: rgba(50, 50, 80, 0.6);
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.ranking-item:hover {
+  transform: scale(1.02);
+  background-color: rgba(40, 40, 60, 0.6);
+}
+
+
+.ranking-list .rank {
+  font-weight: bold;
+  font-size: 1.3rem;
+  min-width: 50px; 
+  text-align: right;
+  padding-right: 15px;
+  color: #aaa;
+}
+
+.ranking-list .name {
+  flex-grow: 1; 
+  text-align: left;
+  padding-left: 20px;
+  font-size: 1.1rem;
+}
+
+.ranking-list .score {
+  font-weight: bold;
+  color: #d0ff00; 
+  min-width: 80px; 
+  text-align: right;
+  font-size: 1.1rem;
+}
+
+.ranking-list li.current-user {
+  background-color: rgba(208, 255, 0, 0.15);
+  border: 1px solid #d0ff00;
+  transform: scale(1.03); 
+}
+
+
+@media (max-width: 600px) {
+    .ranking-item, .ranking-header {
+        padding: 10px 15px;
+        font-size: 0.9rem; 
+    }
+    .ranking-list .rank {
+        min-width: 30px;
+        padding-right: 10px;
+        font-size: 1rem;
+    }
+    .ranking-list .name {
+        padding-left: 10px;
+        font-size: 0.9rem;
+    }
+    .ranking-list .score {
+         min-width: 60px;
+         font-size: 0.9rem;
+    }
+}

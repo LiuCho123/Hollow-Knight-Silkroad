@@ -13,7 +13,8 @@ import Hilo from './paginas/Hilo';
 import Trivia from './paginas/Trivia';
 import ChecklistPage from './paginas/Checklist';
 import GuiaPage from './paginas/Guia';
-
+import RankingPage from './paginas/Ranking.jsx';
+import { ChecklistProvider } from './data/ChecklistContext';
 const api_url = "http://demo0658844.mockable.io";
 
 function App() {
@@ -46,25 +47,28 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/registro" element={<Registro />} />
-        <Route path="/iniciosesion" element={<InicioSesion />} />
-        <Route path="/olvidepassword" element={<OlvidePassword />} />
-        <Route path="/verificarcodigo" element={<VerificarCodigo />} />
-        <Route path="/recuperarpassword" element={<RecuperarContraseña />} />
-        <Route path="/crear-hilo" element={<CrearHilo onCrearHilo={handleCrearHilo}/>} />
-        <Route path="/hilo/:hiloId" element={<Hilo hilos={hilos}/>} />
+      <ChecklistProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/registro" element={<Registro />} />
+          <Route path="/iniciosesion" element={<InicioSesion />} />
+          <Route path="/olvidepassword" element={<OlvidePassword />} />
+          <Route path="/verificarcodigo" element={<VerificarCodigo />} />
+          <Route path="/recuperarpassword" element={<RecuperarContraseña />} />
+          <Route path="/crear-hilo" element={<CrearHilo onCrearHilo={handleCrearHilo}/>} />
+          <Route path="/hilo/:hiloId" element={<Hilo hilos={hilos}/>} />
 
 
 
-        <Route element={<Layout />}>
-          <Route path="/foro" element={<Foro hilos={hilos} loading={loading} error={error}/>} />
-          <Route path="/trivia" element={<Trivia />} />
-          <Route path="/checklist" element={<ChecklistPage />} />
-          <Route path="/guia" element={<GuiaPage />} />
-        </Route>
-      </Routes>
+          <Route element={<Layout />}>
+            <Route path="/foro" element={<Foro hilos={hilos} loading={loading} error={error}/>} />
+            <Route path="/trivia" element={<Trivia />} />
+            <Route path="/checklist" element={<ChecklistPage />} />
+            <Route path="/ranking" element={<RankingPage />} />
+            <Route path="/guia" element={<GuiaPage />} />
+          </Route>
+        </Routes>
+      </ChecklistProvider>
     </BrowserRouter>
   );
 }
