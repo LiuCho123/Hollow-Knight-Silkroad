@@ -80,7 +80,7 @@ const checklistData = [
             {id: 'mask-shard15', label: 'Fragmento 15' },
             {id: 'mask-shard16', label: 'Fragmento 16' }]},
     { 
-        category: 'nail-upgrade', title: 'Mejoras de Clavo', items: [
+        category: 'nail-upgrade', title: 'Mejoras de Aguijón', items: [
             {id: 'nail-upgrade1', label: 'Aguijon Afilado' },
             {id: 'nail-upgrade2', label: 'Aguijon Esterilizado' },
             {id: 'nail-upgrade3', label: 'Aguijon en Espiral' },
